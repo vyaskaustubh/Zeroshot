@@ -1,5 +1,6 @@
 import collections
 import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
 import re
 import numpy
 from tensorflow.python.framework import ops
