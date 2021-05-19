@@ -295,11 +295,11 @@ class MLTModel(object):
     def construct_optimizer(self, opt_strategy, loss, learningrate, clip):
         optimizer = None
         if opt_strategy == "adadelta":
-            optimizer = tf.train.AdadeltaOptimizer(learning_rate=learningrate)
+            optimizer = tf.optimizers.Adadelta(learning_rate=learningrate)
         elif opt_strategy == "adam":
-            optimizer = tf.train.AdamOptimizer(learning_rate=learningrate)
+            optimizer = tf.optimizers.Adam(learning_rate=learningrate)
         elif opt_strategy == "sgd":
-            optimizer = tf.train.GradientDescentOptimizer(learning_rate=learningrate)
+            optimizer = tf.optimizers.GradientDescent(learning_rate=learningrate)
         else:
             raise ValueError("Unknown optimisation strategy: " + str(opt_strategy))
 
