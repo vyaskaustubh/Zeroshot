@@ -83,7 +83,7 @@ class MLTModel(object):
 
 
     def construct_network(self):
-        self.word_ids = tf.placeholder(tf.int32, [None, None], name="word_ids")
+        self.word_ids = tf.compat.v1.placeholder(tf.int32, [None, None], name="word_ids")
         self.char_ids = tf.placeholder(tf.int32, [None, None, None], name="char_ids")
         self.sentence_lengths = tf.placeholder(tf.int32, [None], name="sentence_lengths")
         self.word_lengths = tf.placeholder(tf.int32, [None, None], name="word_lengths")
