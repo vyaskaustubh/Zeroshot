@@ -1,5 +1,6 @@
 import collections
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import re
 import numpy
 from tensorflow.python.framework import ops
@@ -82,8 +83,7 @@ class MLTModel(object):
 
 
     def construct_network(self):
-        import tensorflow.compat.v1 as tf
-        tf.disable_v2_behavior()
+    
         self.word_ids = tf.placeholder(tf.int32, [None, None], name="word_ids")
         self.char_ids = tf.placeholder(tf.int32, [None, None, None], name="char_ids")
         self.sentence_lengths = tf.placeholder(tf.int32, [None], name="sentence_lengths")
@@ -262,7 +262,7 @@ class MLTModel(object):
         self.train_op = self.construct_optimizer(self.config["opt_strategy"], self.loss, self.learningrate, self.config["clip"])
 
 
-
+import tensorflow as tf
     def construct_lmcost(self, input_tensor_fw, input_tensor_bw, sentence_lengths, target_ids, lmcost_type, name):
         with tf.variable_scope(name):
             lmcost_max_vocab_size = min(len(self.word2id), self.config["lmcost_max_vocab_size"])
