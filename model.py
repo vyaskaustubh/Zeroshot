@@ -1,6 +1,5 @@
 import collections
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+import tensorflow as tf
 import re
 import numpy
 from tensorflow.python.framework import ops
@@ -83,16 +82,16 @@ class MLTModel(object):
 
 
     def construct_network(self):
-        self.word_ids = tf.placeholder(tf.int32, [None, None], name="word_ids")
-        self.char_ids = tf.placeholder(tf.int32, [None, None, None], name="char_ids")
-        self.sentence_lengths = tf.placeholder(tf.int32, [None], name="sentence_lengths")
-        self.word_lengths = tf.placeholder(tf.int32, [None, None], name="word_lengths")
-        self.sentence_labels = tf.placeholder(tf.float32, [None,], name="sentence_labels")
-        self.word_labels = tf.placeholder(tf.float32, [None,None], name="word_labels")
-        self.word_objective_weights = tf.placeholder(tf.float32, [None,None], name="word_objective_weights")
-        self.sentence_objective_weights = tf.placeholder(tf.float32, [None], name="sentence_objective_weights")
-        self.learningrate = tf.placeholder(tf.float32, name="learningrate")
-        self.is_training = tf.placeholder(tf.int32, name="is_training")
+        self.word_ids = tf.keras.Input(tf.int32, [None, None], name="word_ids")
+        self.char_ids = tf.keras.Input(tf.int32, [None, None, None], name="char_ids")
+        self.sentence_lengths = tf.keras.Input(tf.int32, [None], name="sentence_lengths")
+        self.word_lengths = tf.keras.Input(tf.int32, [None, None], name="word_lengths")
+        self.sentence_labels = tf.keras.Input(tf.float32, [None,], name="sentence_labels")
+        self.word_labels = tf.keras.Input(tf.float32, [None,None], name="word_labels")
+        self.word_objective_weights = tf.keras.Input(tf.float32, [None,None], name="word_objective_weights")
+        self.sentence_objective_weights = tf.keras.Input(tf.float32, [None], name="sentence_objective_weights")
+        self.learningrate = tf.keras.Input(tf.float32, name="learningrate")
+        self.is_training = tf.keras.Input(tf.int32, name="is_training")
 
         self.loss = 0.0
         input_tensor = None
