@@ -308,7 +308,7 @@ class MLTModel(object):
             grads, gnorm  = tf.clip_by_global_norm(grads, clip)
             train_op = optimizer.apply_gradients(zip(grads, vs))
         else:
-            train_op = optimizer.minimize(loss)
+            train_op = optimizer.minimize(loss,var_list =[])
         return train_op
 
 
