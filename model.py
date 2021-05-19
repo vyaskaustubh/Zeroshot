@@ -102,9 +102,9 @@ class MLTModel(object):
         if self.config["initializer"] == "normal":
             self.initializer = tf.random_normal_initializer(mean=0.0, stddev=0.1)
         elif self.config["initializer"] == "glorot":
-            self.initializer = tf.glorot_uniform_initializer()
+            self.initializer = tf.global_uniform_initializer()
         elif self.config["initializer"] == "xavier":
-            self.initializer = tf.glorot_normal_initializer()
+            self.initializer = tf.global_normal_initializer()
 
         zeros_initializer = tf.zeros_initializer()
 
