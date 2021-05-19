@@ -261,8 +261,9 @@ class MLTModel(object):
 
         self.train_op = self.construct_optimizer(self.config["opt_strategy"], self.loss, self.learningrate, self.config["clip"])
 
-
 import tensorflow as tf
+   
+    
     def construct_lmcost(self, input_tensor_fw, input_tensor_bw, sentence_lengths, target_ids, lmcost_type, name):
         with tf.variable_scope(name):
             lmcost_max_vocab_size = min(len(self.word2id), self.config["lmcost_max_vocab_size"])
