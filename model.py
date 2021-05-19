@@ -1,6 +1,6 @@
 import collections
-import tensorflow.compat.v1 as tf
-tf.disable_v2_behavior()
+import tensorflow as tf
+tf.compat.v1.disable_eager_execution()
 import re
 import numpy
 from tensorflow.python.framework import ops
@@ -83,7 +83,6 @@ class MLTModel(object):
 
 
     def construct_network(self):
-    
         self.word_ids = tf.placeholder(tf.int32, [None, None], name="word_ids")
         self.char_ids = tf.placeholder(tf.int32, [None, None, None], name="char_ids")
         self.sentence_lengths = tf.placeholder(tf.int32, [None], name="sentence_lengths")
@@ -260,7 +259,9 @@ class MLTModel(object):
             self.loss += self.config["lmcost_joint_lstm_gamma"] * self.construct_lmcost(lstm_outputs_fw, lstm_outputs_bw, self.sentence_lengths, self.word_ids, "joint", "lmcost_lstm_joint")
 
         self.train_op = self.construct_optimizer(self.config["opt_strategy"], self.loss, self.learningrate, self.config["clip"])
-    
+
+
+
     def construct_lmcost(self, input_tensor_fw, input_tensor_bw, sentence_lengths, target_ids, lmcost_type, name):
         with tf.variable_scope(name):
             lmcost_max_vocab_size = min(len(self.word2id), self.config["lmcost_max_vocab_size"])
@@ -293,11 +294,11 @@ class MLTModel(object):
     def construct_optimizer(self, opt_strategy, loss, learningrate, clip):
         optimizer = None
         if opt_strategy == "adadelta":
-            optimizer = tf.optimizers.Adadelta(learning_rate=learningrate)
+            optimizer = tf.train.AdadeltaOptimizer(learning_rate=learningrate)
         elif opt_strategy == "adam":
-            optimizer = tf.optimizers.Adam(learning_rate=learningrate)
+            optimizer = tf.train.AdamOptimizer(learning_rate=learningrate)
         elif opt_strategy == "sgd":
-            optimizer = tf.optimizers.GradientDescent(learning_rate=learningrate)
+            optimizer = tf.train.GradientDescentOptimizer(learning_rate=learningrate)
         else:
             raise ValueError("Unknown optimisation strategy: " + str(opt_strategy))
 
@@ -306,7 +307,7 @@ class MLTModel(object):
             grads, gnorm  = tf.clip_by_global_norm(grads, clip)
             train_op = optimizer.apply_gradients(zip(grads, vs))
         else:
-            train_op = optimizer.minimize(loss,var_list =[grads,vs])
+            train_op = optimizer.minimize(loss)
         return train_op
 
 
@@ -476,4 +477,3 @@ class MLTModel(object):
                 assert(variable.shape == dump["params"][variable.name].shape), "Variable shape not as expected: " + str(variable.name) + " " + str(variable.shape) + " " + str(dump["params"][variable.name].shape)
                 value = numpy.asarray(dump["params"][variable.name])
                 self.session.run(variable.assign(value))
-
