@@ -5,7 +5,9 @@ import re
 import numpy
 from tensorflow.python.framework import ops
 from tensorflow.python.ops import math_ops
-
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+session = tf.Session(config=config)
 try:
     import cPickle as pickle
 except:
