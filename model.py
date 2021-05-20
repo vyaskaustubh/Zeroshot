@@ -93,7 +93,7 @@ class MLTModel(object):
         self.sentence_objective_weights = tf.placeholder(tf.float32, [None], name="sentence_objective_weights")
         self.learningrate = tf.placeholder(tf.float32, name="learningrate")
         self.is_training = tf.placeholder(tf.int32, name="is_training")
-
+        import tensorflow as tf
         self.loss = 0.0
         input_tensor = None
         input_vector_size = 0
