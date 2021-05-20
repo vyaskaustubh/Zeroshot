@@ -93,7 +93,7 @@ class MLTModel(object):
         self.sentence_objective_weights = tf.placeholder(tf.float32, [None], name="sentence_objective_weights")
         self.learningrate = tf.placeholder(tf.float32, name="learningrate")
         self.is_training = tf.placeholder(tf.int32, name="is_training")
-        import tensorflow as tf
+      
         self.loss = 0.0
         input_tensor = None
         input_vector_size = 0
@@ -280,8 +280,7 @@ class MLTModel(object):
             else:
                 raise ValueError("Unknown lmcost_type: " + str(lmcost_type))
             return cost
-
-
+import tensorflow as tf
     def _construct_lmcost(self, input_tensor, lmcost_max_vocab_size, lmcost_mask, target_ids, name):
         with tf.variable_scope(name):
             lmcost_hidden_layer = tf.layers.dense(input_tensor, self.config["lmcost_hidden_layer_size"], activation=tf.tanh, kernel_initializer=self.initializer)
