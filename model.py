@@ -280,7 +280,7 @@ class MLTModel(object):
             else:
                 raise ValueError("Unknown lmcost_type: " + str(lmcost_type))
             return cost
-import tensorflow as tf
+
     def _construct_lmcost(self, input_tensor, lmcost_max_vocab_size, lmcost_mask, target_ids, name):
         with tf.variable_scope(name):
             lmcost_hidden_layer = tf.layers.dense(input_tensor, self.config["lmcost_hidden_layer_size"], activation=tf.tanh, kernel_initializer=self.initializer)
