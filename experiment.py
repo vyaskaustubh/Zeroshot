@@ -5,9 +5,7 @@ import random
 import math
 import os
 import gc
-from numba import cuda 
-device = cuda.get_current_device()
-device.reset()
+
 try:
     import ConfigParser as configparser
 except:
