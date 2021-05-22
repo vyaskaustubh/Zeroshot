@@ -10,7 +10,7 @@ config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
 import pickle
 
-class MLTModel(object):
+class Model(object):
     def __init__(self, config):
         self.config = config
 
