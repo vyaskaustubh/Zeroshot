@@ -9,9 +9,7 @@ config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
 import pickle
-from numba import cuda 
-device = cuda.get_current_device()
-device.reset()
+
 
 class Model(object):
     def __init__(self, config):
