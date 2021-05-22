@@ -11,7 +11,7 @@ try:
 except:
     import configparser
 
-from model import MLTModel
+from model import Model
 from evaluator import MLTEvaluator
 
 def read_input_files(file_paths, max_sentence_length=-1):
