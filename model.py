@@ -9,6 +9,9 @@ config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
 import pickle
+from numba import cuda 
+device = cuda.get_current_device()
+device.reset()
 
 class Model(object):
     def __init__(self, config):
@@ -259,9 +262,7 @@ class Model(object):
 
         self.train_op = self.construct_optimizer(self.config["opt_strategy"], self.loss, self.learningrate, self.config["clip"])
 
-from numba import cuda 
-device = cuda.get_current_device()
-device.reset()
+
 
     def construct_lmcost(self, input_tensor_fw, input_tensor_bw, sentence_lengths, target_ids, lmcost_type, name):
         with tf.variable_scope(name):
