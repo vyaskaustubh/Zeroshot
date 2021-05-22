@@ -163,7 +163,7 @@ def run_experiment(config_path):
         for path_test in config["path_test"].strip().split(":"):
             data_test += read_input_files(path_test)
 
-    model = MLTModel(config)
+    model = Model(config)
     model.build_vocabs(data_train, data_dev, data_test, config["preload_vectors"])
     model.construct_network()
     model.initialize_session()
