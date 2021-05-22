@@ -14,8 +14,8 @@ class MLTModel(object):
     def __init__(self, config):
         self.config = config
 
-        self.UNK = "<WORD>"
-        self.CUNK = "<UPOS>"
+        self.UNK = "<unk>"
+        self.CUNK = "<cunk>"
 
         self.word2id = None
         self.char2id = None
