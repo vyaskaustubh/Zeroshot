@@ -451,7 +451,7 @@ class Model(object):
                 for key in new_config:
                     dump["config"][key] = new_config[key]
 
-            labeler = MLTModel(dump["config"])
+            labeler = model(dump["config"])
             labeler.UNK = dump["UNK"]
             labeler.CUNK = dump["CUNK"]
             labeler.word2id = dump["word2id"]
