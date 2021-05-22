@@ -8,17 +8,14 @@ from tensorflow.python.ops import math_ops
 config = tf.ConfigProto()
 config.gpu_options.allow_growth = True
 session = tf.Session(config=config)
-try:
-    import cPickle as pickle
-except:
-    import pickle
+import pickle
 
 class MLTModel(object):
     def __init__(self, config):
         self.config = config
 
-        self.UNK = "<unk>"
-        self.CUNK = "<cunk>"
+        self.UNK = "<WORD>"
+        self.CUNK = "<UPOS>"
 
         self.word2id = None
         self.char2id = None
